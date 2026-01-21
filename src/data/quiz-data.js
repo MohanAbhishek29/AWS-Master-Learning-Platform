@@ -1400,4 +1400,356 @@ export const quizData = [
         answer: "All of the above",
         explanation: "AWS Local Zones place compute, storage, database, and other select AWS services closer to end-users for low-latency applications."
     }
+    ,
+    {
+        id: 201,
+        question: "Which service allows you to build and scale generative AI applications with foundation models?",
+        options: ["Amazon Bedrock", "SageMaker", "Rekognition", "Polly"],
+        answer: "Amazon Bedrock",
+        explanation: "Amazon Bedrock is a fully managed service that makes foundation models from leading AI startups and Amazon available via an API."
+    },
+    {
+        id: 202,
+        question: "You need to share code and libraries across multiple Lambda functions to reduce deployment package size.",
+        options: ["Lambda Layers", "Step Functions", "EFS", "S3"],
+        answer: "Lambda Layers",
+        explanation: "A Lambda layer is a .zip file archive that contains supplementary code or data. Layers let you keep your deployment package small."
+    },
+    {
+        id: 203,
+        question: "Which feature allows you to connect supported AWS services to creates seamless point-to-point integrations?",
+        options: ["EventBridge Pipes", "SNS", "SQS", "Kinesis"],
+        answer: "EventBridge Pipes",
+        explanation: "Amazon EventBridge Pipes helps you create point-to-point integrations between event producers and consumers with optional filtering, enrichment, and transformation."
+    },
+    {
+        id: 204,
+        question: "You need a globally distributed relational database with local read performance in multiple regions.",
+        options: ["Aurora Global Database", "DynamoDB Global Tables", "RDS Read Replicas", "Redshift"],
+        answer: "Aurora Global Database",
+        explanation: "Amazon Aurora Global Database is designed for globally distributed applications, allowing a single Amazon Aurora database to span multiple AWS Regions."
+    },
+    {
+        id: 205,
+        question: "Which service allows you to run Kubernetes pods without managing the underlying EC2 nodes?",
+        options: ["EKS usually on Fargate", "ECS", "App Runner", "Lightsail"],
+        answer: "EKS usually on Fargate",
+        explanation: "Running Amazon EKS on AWS Fargate lets you run Kubernetes pods without provisioning or managing EC2 instances."
+    },
+    {
+        id: 206,
+        question: "You verify network path reachability between two resources in your VPC.",
+        options: ["VPC Reachability Analyzer", "VPC Flow Logs", "Network Access Analyzer", "Traffic Mirroring"],
+        answer: "VPC Reachability Analyzer",
+        explanation: "VPC Reachability Analyzer is a configuration analysis tool that enables you to check connectivity between a source and destination in your VPCs."
+    },
+    {
+        id: 207,
+        question: "Which service aggregates security findings from multiple AWS services and 3rd party tools?",
+        options: ["Security Hub", "GuardDuty", "Inspector", "Macie"],
+        answer: "Security Hub",
+        explanation: "AWS Security Hub provides a comprehensive view of your security alerts and security posture across your AWS accounts."
+    },
+    {
+        id: 208,
+        question: "You want to set up a multi-account environment with best practices blueprints automatically.",
+        options: ["Control Tower", "Organizations", "Service Catalog", "Config"],
+        answer: "Control Tower",
+        explanation: "AWS Control Tower provides the easiest way to set up and govern a secure, multi-account AWS environment, automating the landing zone setup."
+    },
+    {
+        id: 209,
+        question: "Which machine learning service allows you to compose music with Generative AI models?",
+        options: ["DeepComposer", "DeepRacer", "DeepLens", "Polly"],
+        answer: "DeepComposer",
+        explanation: "AWS DeepComposer gives developers a creative way to get started with Generative AI, specifically for music composition."
+    },
+    {
+        id: 210,
+        question: "You need to run quantum computing algorithms on real quantum hardware.",
+        options: ["Amazon Braket", "SageMaker", "EC2 Ultra Clusters", "Quantum Ledger"],
+        answer: "Amazon Braket",
+        explanation: "Amazon Braket is a fully managed quantum computing service that helps you get started with quantum computing algorithms and hardware."
+    },
+    {
+        id: 211,
+        question: "Which service is a time-series database for IoT and operational applications?",
+        options: ["Timestream", "DynamoDB", "Redshift", "Neptune"],
+        answer: "Timestream",
+        explanation: "Amazon Timestream is a fast, scalable, and fully managed time-series database service for IoT and operational applications."
+    },
+    {
+        id: 212,
+        question: "You want to create a private network that spans your AWS datacenter and your on-premises environment.",
+        options: ["Site-to-Site VPN", "Client VPN", "Direct Connect", "CloudHub"],
+        answer: "Site-to-Site VPN",
+        explanation: "AWS Site-to-Site VPN creates a secure, IPsec-encrypted connection between your on-premises network and your Amazon VPC."
+    },
+    {
+        id: 213,
+        question: "Which service leverages satellite ground stations to communicate with satellites?",
+        options: ["AWS Ground Station", "Direct Connect", "Global Accelerator", "Route 53"],
+        answer: "AWS Ground Station",
+        explanation: "AWS Ground Station is a fully managed service that lets you control satellite communications, process data, and scale your operations."
+    },
+    {
+        id: 214,
+        question: "You need to manage your IoT devices at the edge, even when they are disconnected from the cloud.",
+        options: ["IoT Greengrass", "IoT Core", "IoT Analytics", "IoT Events"],
+        answer: "IoT Greengrass",
+        explanation: "AWS IoT Greengrass seamlessly extends AWS to edge devices so they can act locally on the data they generate, while still using the cloud for management."
+    },
+    {
+        id: 215,
+        question: "Which service provides a centralized view to manage and audit your compliance status?",
+        options: ["Audit Manager", "Artifact", "Config", "Security Hub"],
+        answer: "Audit Manager",
+        explanation: "AWS Audit Manager helps you continuously audit your AWS usage to simplify how you assess risk and compliance with regulations and industry standards."
+    },
+    {
+        id: 216,
+        question: "You want to detect cost anomalies and receive root cause analysis.",
+        options: ["Cost Anomaly Detection", "Budgets", "Cost Explorer", "Compute Optimizer"],
+        answer: "Cost Anomaly Detection",
+        explanation: "AWS Cost Anomaly Detection is a feature that uses machine learning to continuously monitor your cost and usage to detect unusual spends."
+    },
+    {
+        id: 217,
+        question: "Which service allows you to create and manage a scalable blockchain network?",
+        options: ["Managed Blockchain", "QLDB", "VPC Endpoint", "KMS"],
+        answer: "Managed Blockchain",
+        explanation: "Amazon Managed Blockchain makes it easy to join public networks or create and manage scalable private networks using Hyperledger Fabric and Ethereum."
+    },
+    {
+        id: 218,
+        question: "You need to simulate robotics applications in a 3D environment.",
+        options: ["RoboMaker", "TwinMaker", "Sumerian", "GameLift"],
+        answer: "RoboMaker",
+        explanation: "AWS RoboMaker is a service that makes it easy to simulate and deploy robotics applications at cloud scale."
+    },
+    {
+        id: 219,
+        question: "Which service allows users to connect to your AWS network using OpenVPN-based clients?",
+        options: ["Client VPN", "Site-to-Site VPN", "Direct Connect", "Connect"],
+        answer: "Client VPN",
+        explanation: "AWS Client VPN is a managed client-based VPN service that enables you to securely access your AWS resources and on-premises networks."
+    },
+    {
+        id: 220,
+        question: "You need a static IP address that provides a fixed entry point to your applications globally.",
+        options: ["Global Accelerator", "Elastic IP", "CloudFront", "Route 53"],
+        answer: "Global Accelerator",
+        explanation: "AWS Global Accelerator uses the AWS global network to improve the availability and performance of your applications to local or global users."
+    },
+    {
+        id: 221,
+        question: "Which service allows you to create digital twins of real-world systems?",
+        options: ["TwinMaker", "RoboMaker", "Sumerian", "Greengrass"],
+        answer: "TwinMaker",
+        explanation: "AWS IoT TwinMaker makes it easier for developers to create digital twins of real-world systems like buildings, factories, industrial equipment, and production lines."
+    },
+    {
+        id: 222,
+        question: "You need to securely transfer files directly into and out of Amazon S3 using SFTP.",
+        options: ["AWS Transfer Family", "DataSync", "Storage Gateway", "Snowball"],
+        answer: "AWS Transfer Family",
+        explanation: "AWS Transfer Family provides fully managed support for file transfers directly into and out of Amazon S3 using SFTP, FTPS, and FTP."
+    },
+    {
+        id: 223,
+        question: "Which service enables you to create conversational interfaces (chatbots) using voice and text?",
+        options: ["Amazon Lex", "Polly", "Transcribe", "Connect"],
+        answer: "Amazon Lex",
+        explanation: "Amazon Lex is a service for building conversational interfaces into any application using voice and text (powered by the same deep learning as Alexa)."
+    },
+    {
+        id: 224,
+        question: "You need to find the root cause of security issues using a graph-based visualization.",
+        options: ["Detective", "GuardDuty", "Security Hub", "Macie"],
+        answer: "Detective",
+        explanation: "Amazon Detective simplifies the process of investigating potential security issues and suspicious activities by visualizing data in a graph."
+    },
+    {
+        id: 225,
+        question: "Which service offers on-demand cloud desktops for remote workers?",
+        options: ["WorkSpaces", "AppStream 2.0", "Cloud9", "Connect"],
+        answer: "WorkSpaces",
+        explanation: "Amazon WorkSpaces is a fully managed, secure Desktop-as-a-Service (DaaS) solution."
+    }
+    ,
+    {
+        id: 226,
+        question: "You need to protect your web applications from SQL injection and Cross-Site Scripting (XSS).",
+        options: ["AWS WAF", "AWS Shield", "Inspector", "GuardDuty"],
+        answer: "AWS WAF",
+        explanation: "AWS WAF is a web application firewall that helps protect your web applications or APIs against common web exploits and bots."
+    },
+    {
+        id: 227,
+        question: "Which service allows you to centrally manage WAF rules across multiple AWS accounts?",
+        options: ["AWS Firewall Manager", "WAF", "Shield Advanced", "Organizations"],
+        answer: "AWS Firewall Manager",
+        explanation: "AWS Firewall Manager simplifies your AWS WAF administration and maintenance tasks across multiple accounts and resources."
+    },
+    {
+        id: 228,
+        question: "You need to encrypt small amounts of data using a public key and decrypt it with a private key.",
+        options: ["KMS Asymmetric Keys", "KMS Symmetric Keys", "Secrets Manager", "ACM"],
+        answer: "KMS Asymmetric Keys",
+        explanation: "AWS KMS supports asymmetric keys, which represents a mathematically related public and private key pair."
+    },
+    {
+        id: 229,
+        question: "You want to automatically rotate the credentials for your RDS database every 30 days.",
+        options: ["Secrets Manager", "Systems Manager Parameter Store", "IAM", "KMS"],
+        answer: "Secrets Manager",
+        explanation: "AWS Secrets Manager helps you protect secrets needed to access your applications, services, and IT resources. It enables you to easily rotate credentials."
+    },
+    {
+        id: 230,
+        question: "You need to issue private SSL/TLS certificates for your internal corporate network.",
+        options: ["ACM Private CA", "ACM Public Certificates", "LetsEncrypt", "Network Firewall"],
+        answer: "ACM Private CA",
+        explanation: "AWS Private Certificate Authority (AWS Private CA) enables you to create a private CA hierarchy to issue and revoke private certificates."
+    },
+    {
+        id: 231,
+        question: "Which service automatically detects personally identifiable information (PII) in your S3 buckets?",
+        options: ["Macie", "GuardDuty", "Inspector", "Security Hub"],
+        answer: "Macie",
+        explanation: "Amazon Macie is a fully managed data security and data privacy service that uses machine learning to discover and protect your sensitive data in AWS."
+    },
+    {
+        id: 232,
+        question: "You need to visualize and analyze the behavior of your VPC flow logs to identify potential security issues.",
+        options: ["Detective", "Flow Logs Console", "Athena", "QuickSight"],
+        answer: "Detective",
+        explanation: "Amazon Detective simplifies the process of investigating potential security issues by visualizing data in a graph."
+    },
+    {
+        id: 233,
+        question: "Which service helps you continuously audit your AWS usage to simplify risk and compliance assessment?",
+        options: ["Audit Manager", "Artifact", "Config", "CloudTrail"],
+        answer: "Audit Manager",
+        explanation: "AWS Audit Manager helps you continuously audit your AWS usage to simplify how you assess risk and compliance with regulations."
+    },
+    {
+        id: 234,
+        question: "You need to download compliance reports like SOC 2 or ISO 27001 for AWS.",
+        options: ["AWS Artifact", "Audit Manager", "Security Hub", "Compliance Center"],
+        answer: "AWS Artifact",
+        explanation: "AWS Artifact provides on-demand access to AWS' security and compliance reports and select online agreements."
+    },
+    {
+        id: 235,
+        question: "Which tool allows you to review your workloads against current AWS best practices?",
+        options: ["Well-Architected Tool", "Trusted Advisor", "Compute Optimizer", "Config"],
+        answer: "Well-Architected Tool",
+        explanation: "The AWS Well-Architected Tool helps you review the state of your workloads and compares them to the latest AWS architectural best practices."
+    },
+    {
+        id: 236,
+        question: "You want recommendations for optimal EC2 instance types based on your usage history.",
+        options: ["Compute Optimizer", "Cost Explorer", "Budgets", "Systems Manager"],
+        answer: "Compute Optimizer",
+        explanation: "AWS Compute Optimizer recommends optimal AWS resources for your workloads to reduce costs and improve performance by using machine learning."
+    },
+    {
+        id: 237,
+        question: "You want to commit to a specific amount of spend per hour for a 1-year term to get a discount.",
+        options: ["Savings Plans", "Reserved Instances", "Spot Instances", "On-Demand"],
+        answer: "Savings Plans",
+        explanation: "Savings Plans is a flexible pricing model that offers low prices on EC2, Lambda, and Fargate usage, in exchange for a commitment to a consistent amount of usage."
+    },
+    {
+        id: 238,
+        question: "You need the flexibility to change the instance family or OS of your reserved capacity.",
+        options: ["Convertible Reserved Instances", "Standard Reserved Instances", "Savings Plans", "Spot Instances"],
+        answer: "Convertible Reserved Instances",
+        explanation: "Convertible RIs provide a discount (up to 54% off On-Demand) and the capability to change the attributes of the RI as long as the exchange results in the creation of RIs of equal or greater value."
+    },
+    {
+        id: 239,
+        question: "You want to launch a fleet of Spot Instances that diversifies across multiple instance types to minimize interruption risk.",
+        options: ["Spot Fleet", "Auto Scaling Group", "EC2 Fleet", "Cluster Placement Group"],
+        answer: "Spot Fleet",
+        explanation: "A Spot Fleet request allows you to launch a fleet of Spot Instances that can be diversified across multiple instance families to maintain target capacity."
+    },
+    {
+        id: 240,
+        question: "You need to pause your EC2 instances and resume them exactly where they left off, saving the RAM state.",
+        options: ["Hibernation", "Stop", "Terminate", "Reboot"],
+        answer: "Hibernation",
+        explanation: "When you hibernate an instance, AWS signals the OS to perform hibernation (suspend-to-disk). Hibernation saves the contents from the instance memory (RAM) to your EBS root volume."
+    },
+    {
+        id: 241,
+        question: "You want to automatically move files in EFS to a lower-cost storage tier after 30 days of inactivity.",
+        options: ["EFS Lifecycle Management", "S3 Lifecycle", "Intelligent Tiering", "DataSync"],
+        answer: "EFS Lifecycle Management",
+        explanation: "Amazon EFS Lifecycle Management automatically moves files that have not been accessed for a set period of time to the Infrequent Access (IA) storage class."
+    },
+    {
+        id: 242,
+        question: "You need the lowest-cost storage for long-lived data that is rarely accessed but requires millisecond retrieval when needed.",
+        options: ["S3 Glacier Instant Retrieval", "S3 Glacier Deep Archive", "S3 Standard-IA", "S3 One Zone-IA"],
+        answer: "S3 Glacier Instant Retrieval",
+        explanation: "S3 Glacier Instant Retrieval is an archive storage class that delivers the lowest-cost storage for long-lived data that is rarely accessed and requires retrieval in milliseconds."
+    },
+    {
+        id: 243,
+        question: "Which S3 feature automatically optimizes storage costs for data with changing access patterns?",
+        options: ["S3 Intelligent-Tiering", "S3 Lifecycle", "S3 Storage Lens", "S3 Analytics"],
+        answer: "S3 Intelligent-Tiering",
+        explanation: "The S3 Intelligent-Tiering storage class is designed to optimize costs by automatically moving data to the most cost-effective access tier, without performance impact or operational overhead."
+    },
+    {
+        id: 244,
+        question: "You need to transfer petabytes of data from on-premises NFS servers to Amazon EFS online.",
+        options: ["AWS DataSync", "Storage Gateway", "Snowball", "Transfer Family"],
+        answer: "AWS DataSync",
+        explanation: "AWS DataSync is an online data transfer service that simplifies, automates, and accelerates copying large amounts of data to and from AWS storage services."
+    },
+    {
+        id: 245,
+        question: "You need to transfer data between SaaS applications like Salesforce and AWS services like S3.",
+        options: ["Amazon AppFlow", "EventBridge", "Glue", "DataSync"],
+        answer: "Amazon AppFlow",
+        explanation: "Amazon AppFlow is a fully managed integration service that enables you to securely transfer data between Software-as-a-Service (SaaS) applications and AWS services."
+    },
+    {
+        id: 246,
+        question: "Which tool allows data analysts to visually prepare data for analytics without writing code?",
+        options: ["Glue DataBrew", "SageMaker Wrangler", "Athena", "Quicksight"],
+        answer: "Glue DataBrew",
+        explanation: "AWS Glue DataBrew is a visual data preparation tool that makes it easy for data analysts and data scientists to clean and normalize data to prepare it for analytics and machine learning."
+    },
+    {
+        id: 247,
+        question: "You want to execute SQL queries across data stored in S3, CloudWatch Logs, and DynamoDB simultaneously.",
+        options: ["Athena Federated Query", "Redshift Spectrum", "Glue", "EMR"],
+        answer: "Athena Federated Query",
+        explanation: "Amazon Athena Federated Query allows you to run SQL queries across data stored in relational, non-relational, object, and custom data sources."
+    },
+    {
+        id: 248,
+        question: "You need to run Redshift queries directly against exabytes of data in Amazon S3.",
+        options: ["Redshift Spectrum", "Athena", "EMR", "Glue"],
+        answer: "Redshift Spectrum",
+        explanation: "Amazon Redshift Spectrum is a feature of Amazon Redshift that allows you to run queries against exabytes of unstructured data in Amazon S3, with no loading or ETL required."
+    },
+    {
+        id: 249,
+        question: "Which service allows you to run big data frameworks like Spark and Hive without managing clusters?",
+        options: ["EMR Serverless", "EMR on EC2", "Glue", "Athena"],
+        answer: "EMR Serverless",
+        explanation: "Amazon EMR Serverless is a serverless option in Amazon EMR that makes it easy for data analysts and engineers to run open-source big data analytics frameworks without configuring, managing, and scaling clusters."
+    },
+    {
+        id: 250,
+        question: "You need a fully managed service to build, deploy, and manage APIs.",
+        options: ["API Gateway", "AppSync", "ELB", "CloudFront"],
+        answer: "API Gateway",
+        explanation: "Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale."
+    }
 ];
