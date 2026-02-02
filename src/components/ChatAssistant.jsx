@@ -5,6 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { services } from '../data/aws-services';
 
 export const ChatAssistant = () => {
+    // --- Safe Storage Helper ---
+    const getStorage = (key, def) => {
+        try { return localStorage.getItem(key) || def; } catch { return def; }
+    };
+    const setStorage = (key, val) => {
+        try { localStorage.setItem(key, val); } catch { }
+    };
+
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
         { id: 1, type: 'bot', text: 'Hello! 👋 I am your AWS Assistant. You can ask me to explain services, or say "Take me to Galaxy" to navigate instantly!' }
@@ -13,14 +21,11 @@ export const ChatAssistant = () => {
     const [isTyping, setIsTyping] = useState(false);
     const [lastContext, setLastContext] = useState(null);
     const [isIdle, setIsIdle] = useState(false);
-    const [userName, setUserName] = useState(localStorage.getItem('aws_user_name') || '');
-    const [apiKey, setApiKey] = useState(() => {
-        try {
-            return localStorage.getItem('gemini_api_key') || 'AIzaSyDLSZ4eNEZ0yjDkSakUt0lO5GcCtRNC9I8';
-        } catch (e) {
-            return 'AIzaSyDLSZ4eNEZ0yjDkSakUt0lO5GcCtRNC9I8';
-        }
-    });
+
+    // SAFE INITIALIZATION
+    const [userName, setUserName] = useState(() => getStorage('aws_user_name', ''));
+    const [apiKey, setApiKey] = useState(() => getStorage('gemini_api_key', 'AIzaSyDLSZ4eNEZ0yjDkSakUt0lO5GcCtRNC9I8'));
+
     const [showSettings, setShowSettings] = useState(false);
     const [isDraggable, setIsDraggable] = useState(false);
     const [dragActive, setDragActive] = useState(false);
@@ -135,7 +140,7 @@ export const ChatAssistant = () => {
         if (nameMatch) {
             const extractedName = nameMatch[2].split(' ')[0]; // Get first name
             const capitalized = extractedName.charAt(0).toUpperCase() + extractedName.slice(1);
-            localStorage.setItem('aws_user_name', capitalized);
+            setStorage('aws_user_name', capitalized);
             setUserName(capitalized);
             return { text: `Nice to meet you, ${capitalized}! 🤝 I'll remember that.` };
         }
@@ -274,7 +279,7 @@ export const ChatAssistant = () => {
     };
 
     const handleSaveKey = (key) => {
-        localStorage.setItem('gemini_api_key', key);
+        setStorage('gemini_api_key', key);
         setApiKey(key);
         setShowSettings(false);
         setMessages(prev => [...prev, { id: Date.now(), type: 'bot', text: "Brain upgrade successful! 🧠 I can now answer almost anything about AWS!" }]);
