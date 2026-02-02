@@ -4,14 +4,21 @@ const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
     // Default to dark, check local storage
+    // Safe Storage Helper
     const [theme, setTheme] = useState(() => {
-        return localStorage.getItem('app-theme') || 'dark';
+        try {
+            return localStorage.getItem('app-theme') || 'dark';
+        } catch {
+            return 'dark';
+        }
     });
 
     useEffect(() => {
+        try {
+            localStorage.setItem('app-theme', theme);
+        } catch { }
         // Apply theme data-attribute to body
-        document.body.setAttribute('data-theme', theme);
-        localStorage.setItem('app-theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 
     const toggleTheme = () => {
