@@ -24,7 +24,7 @@ export const ChatAssistant = () => {
 
     // SAFE INITIALIZATION
     const [userName, setUserName] = useState(() => getStorage('aws_user_name', ''));
-    const [apiKey, setApiKey] = useState(() => getStorage('gemini_api_key', 'AIzaSyDLSZ4eNEZ0yjDkSakUt0lO5GcCtRNC9I8'));
+    const [apiKey, setApiKey] = useState(() => getStorage('gemini_api_key', ''));
 
     const [showSettings, setShowSettings] = useState(false);
     const [isDraggable, setIsDraggable] = useState(false);
@@ -212,6 +212,15 @@ export const ChatAssistant = () => {
             }
         }
 
+        // 3.5 SMART BYPASS: Force AI for "Complex" Requests
+        // If the user asks to "write", "compare", or uses a long sentence, skip the simple dictionary lookup.
+        const isComplex = lower.split(' ').length > 5 ||
+            ['write', 'code', 'script', 'how', 'why', 'compare', 'vs', 'difference', 'generate', 'list'].some(w => lower.includes(w));
+
+        if (isComplex && apiKey) {
+            return { fallback: true };
+        }
+
         // 4. KNOWLEDGE LOOKUP (Service details)
         const foundService = services.find(s => lower.includes(s.id) || lower.includes(s.name.toLowerCase()));
         if (foundService) {
@@ -249,15 +258,16 @@ export const ChatAssistant = () => {
 
     // --- Gemini AI Integration ---
     const callGeminiAI = async (prompt) => {
-        if (!apiKey) return null;
+        if (!apiKey) return "⚠️ No API Key found. Please add one in Settings.";
 
         try {
+            console.log("Calling Gemini API...");
             const systemPrompt = `You are the AWS Cloud Assistant for a learning website. Your creator is Mohan Abhishek. 
             Keep answers concise (under 80 words), friendly, and emoji-rich. 
             User's name is ${userName || 'Friend'}. 
             Context: The user is asking about AWS. Answer their question directly.`;
 
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -266,11 +276,17 @@ export const ChatAssistant = () => {
             });
 
             const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Gemini API Error:", data);
+                return `⚠️ **AI Error (${response.status})**: ${data.error?.message || 'Unknown error'}`;
+            }
+
             const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            return aiText || null;
+            return aiText || "⚠️ The AI processed the request but returned no text.";
         } catch (error) {
-            console.error("AI Error:", error);
-            return "My cloud connection is a bit fuzzy right now! ☁️ Try again later.";
+            console.error("Network Error:", error);
+            return "⚠️ **Connection Error**: Could not reach Google AI. Check your internet.";
         }
     };
 

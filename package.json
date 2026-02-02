@@ -1,6 +1,7 @@
 {
   "name": "aws-god-tier-learning",
   "private": true,
+  "homepage": "https://MohanAbhishek29.github.io/AWS-Master-Learning-Platform",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
