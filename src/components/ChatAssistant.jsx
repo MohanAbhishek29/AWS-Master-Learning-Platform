@@ -14,7 +14,13 @@ export const ChatAssistant = () => {
     const [lastContext, setLastContext] = useState(null);
     const [isIdle, setIsIdle] = useState(false);
     const [userName, setUserName] = useState(localStorage.getItem('aws_user_name') || '');
-    const [apiKey, setApiKey] = useState(localStorage.getItem('gemini_api_key') || 'AIzaSyDLSZ4eNEZ0yjDkSakUt0lO5GcCtRNC9I8');
+    const [apiKey, setApiKey] = useState(() => {
+        try {
+            return localStorage.getItem('gemini_api_key') || 'AIzaSyDLSZ4eNEZ0yjDkSakUt0lO5GcCtRNC9I8';
+        } catch (e) {
+            return 'AIzaSyDLSZ4eNEZ0yjDkSakUt0lO5GcCtRNC9I8';
+        }
+    });
     const [showSettings, setShowSettings] = useState(false);
     const [isDraggable, setIsDraggable] = useState(false);
     const [dragActive, setDragActive] = useState(false);
