@@ -354,18 +354,29 @@ export const SoundManager = {
 
     stopSpaceAmbience: () => {
         if (!SoundManager.activeAmbience) return;
+
+        // Grab values and CLEAR THE FLAG IMMEDIATELY
+        // This allows a new playSpaceAmbience() call to succeed instantly even if this old one is still fading out.
         const { ctx, masterGain, nodes } = SoundManager.activeAmbience;
-        const now = ctx.currentTime;
+        SoundManager.activeAmbience = null;
 
-        // Smooth fade out
-        masterGain.gain.cancelScheduledValues(now);
-        masterGain.gain.setValueAtTime(masterGain.gain.value, now);
-        masterGain.gain.linearRampToValueAtTime(0, now + 2.0); // 2s Fade out
+        if (ctx.state === 'closed') return;
 
-        setTimeout(() => {
-            nodes.forEach(n => n.stop());
-            ctx.close();
-            SoundManager.activeAmbience = null;
-        }, 2100);
+        try {
+            const now = ctx.currentTime;
+            // Smooth fade out detached from the global state
+            masterGain.gain.cancelScheduledValues(now);
+            masterGain.gain.setValueAtTime(masterGain.gain.value, now);
+            masterGain.gain.linearRampToValueAtTime(0, now + 2.0); // 2s Fade out
+
+            setTimeout(() => {
+                try {
+                    nodes.forEach(n => n.stop());
+                    ctx.close();
+                } catch (e) { }
+            }, 2100);
+        } catch (e) {
+            console.warn("Audio cleanup warning:", e);
+        }
     }
 };
