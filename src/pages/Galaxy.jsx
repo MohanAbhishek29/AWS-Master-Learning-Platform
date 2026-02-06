@@ -6,39 +6,49 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import * as THREE from 'three';
+
 export const Galaxy = () => {
     const { isDarkMode } = useTheme();
     const fgRef = useRef();
     const [hoverNode, setHoverNode] = useState(null);
     const [isRotating, setIsRotating] = useState(true);
 
-    // Smart Manual Rotation (Drift)
+    // 1. Physics Configuration (Run Once)
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (fgRef.current) {
+                // Physics: Balanced for Larger Nodes
+                fgRef.current.d3Force('charge').strength(-800);
+                fgRef.current.d3Force('link').distance(link => link.target.desc ? 50 : 100); // Distance 100 as requested
+
+                // Ensure controls don't fight us
+                const controls = fgRef.current.controls();
+                if (controls) {
+                    controls.autoRotate = false; // Disable native auto-rotate
+                    controls.enableDamping = true;
+                    controls.dampingFactor = 0.1;
+                }
+            }
+        }, 500);
+        return () => clearTimeout(timeout);
+    }, [galaxyData]);
+
+    // 2. Manual Rotation Loop (Classic Drift)
     useEffect(() => {
         let frameId;
         const rotate = () => {
             if (isRotating && fgRef.current) {
-                // Apply Physics
-                fgRef.current.d3Force('charge').strength(-120);
-
-                // Calculate Rotation
                 const camPos = fgRef.current.cameraPosition();
-                const dist = Math.sqrt(camPos.x * camPos.x + camPos.z * camPos.z);
-                const angle = Math.atan2(camPos.x, camPos.z);
-                const newAngle = angle + 0.002; // Tune speed here (0.002 is roughly "Normal")
-
-                fgRef.current.cameraPosition(
-                    {
-                        x: dist * Math.sin(newAngle),
-                        z: dist * Math.cos(newAngle),
-                        y: camPos.y // Maintain height
-                    },
-                    null, // lookAt (null = center)
-                    0     // duration (immediate)
-                );
+                if (camPos) {
+                    const dist = Math.sqrt(camPos.x * camPos.x + camPos.z * camPos.z);
+                    const angle = Math.atan2(camPos.x, camPos.z);
+                    const newAngle = angle + 0.0015;
+                    fgRef.current.cameraPosition({ x: dist * Math.sin(newAngle), z: dist * Math.cos(newAngle), y: camPos.y }, null, 0);
+                }
             }
             frameId = requestAnimationFrame(rotate);
         };
-
         rotate();
         return () => cancelAnimationFrame(frameId);
     }, [isRotating]);
@@ -49,18 +59,20 @@ export const Galaxy = () => {
         const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
 
         fgRef.current.cameraPosition(
-            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
-            node, // lookAt ({ x, y, z })
-            3000  // ms transition duration
+            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
+            node,
+            3000
         );
     };
 
     return (
         <div style={{
             height: '100vh',
-            background: isDarkMode
-                ? 'radial-gradient(circle at center, #1a1a2e 0%, #050505 100%)' // Deep Space Gradient
-                : 'radial-gradient(circle at center, #f8fafc 0%, #cbd5e1 100%)', // Premium Silver/Light Gradient
+            // Galaxy Background Image with overlay
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2070&auto=format&fit=crop')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            overflow: 'hidden',
             transition: 'background 0.5s ease'
         }}>
 
@@ -95,27 +107,76 @@ export const Galaxy = () => {
             <ForceGraph3D
                 ref={fgRef}
                 graphData={galaxyData}
-                nodeLabel="id"
-                nodeColor="color"
-                // Visuals
-                nodeRelSize={8}
-                nodeOpacity={1}
-                nodeResolution={32}
 
-                // Link style
+                // VISUAL RESTORATION: Back to "Glowing Spheres" (Canvas Mode)
+                nodeCanvasObject={(node, ctx, globalScale) => {
+                    const isHub = node.val > 20;
+                    const isHovered = node === hoverNode;
+                    const label = node.id;
+                    const fontSize = isHub ? 16 / globalScale : 12 / globalScale;
+                    ctx.font = `${fontSize}px Sans-Serif`;
+
+                    // Draw Star Glow
+                    const radius = Math.sqrt(node.val) * (isHovered ? 1.5 : 1);
+                    const drawRadius = radius * 1.5; // Glow Radius
+
+                    // Create Radial Gradient (Core -> Glow -> Transparent)
+                    const gradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, drawRadius);
+                    gradient.addColorStop(0, node.color);
+                    gradient.addColorStop(0.4, node.color); // Core
+                    gradient.addColorStop(1, 'rgba(0,0,0,0)'); // Fade
+
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, drawRadius, 0, 2 * Math.PI, false);
+                    ctx.fill();
+
+                    // Permanent Labels for Hubs or Hovered
+                    if (isHub || isHovered) {
+                        const textWidth = ctx.measureText(label).width;
+                        const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2);
+
+                        // Label Background
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                        ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2 - drawRadius - 2, bckgDimensions[0], bckgDimensions[1]);
+
+                        // Text
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillStyle = isHovered ? '#fff' : 'rgba(255, 255, 255, 0.9)';
+                        ctx.fillText(label, node.x, node.y - drawRadius - 2 - fontSize / 2);
+                    }
+                }}
+                nodeCanvasObjectMode={() => 'replace'} // Clear default sphere
+
+                // Custom "Sprite" Labels (Floating Text) for Hubs
+                nodeLabel="id" // Simple tooltip fallback
+
+                // Link style - "Laser Beams"
                 linkColor={link => link.source.color || '#ffffff'}
-                linkWidth={1.5}
-                linkOpacity={0.3}
-                linkDirectionalParticles={6}
-                linkDirectionalParticleSpeed={0.015} // Much faster flow
-                linkDirectionalParticleWidth={4} // Chonky data packets
+                linkWidth={0.6}
+                linkOpacity={0.4} // Brighter links
+                linkDirectionalParticles={4}
+                linkDirectionalParticleSpeed={0.005} // Slow & Steady data flow
+                linkDirectionalParticleWidth={5}
+                linkDirectionalParticleColor={() => '#00ff99'} // Neon Green Packets
 
                 // Aesthetics
                 showNavInfo={false}
-                backgroundColor="rgba(0,0,0,0)" // Transparent to show gradient
-                onNodeHover={setHoverNode}
-                onNodeClick={handleClick}
-                enableNodeDrag={true} // Allow dragging for fun
+                backgroundColor="rgba(0,0,0,0)"
+
+                // Interaction
+                onNodeHover={(node) => {
+                    if (node && node !== hoverNode) {
+                        try { import('../utils/SoundManager').then(m => m.SoundManager.playHover()); } catch (e) { }
+                    }
+                    setHoverNode(node);
+                }}
+                onNodeClick={(node) => {
+                    try { import('../utils/SoundManager').then(m => m.SoundManager.playSelect()); } catch (e) { }
+                    handleClick(node);
+                }}
+                enableNodeDrag={true}
             />
 
             {hoverNode && (
